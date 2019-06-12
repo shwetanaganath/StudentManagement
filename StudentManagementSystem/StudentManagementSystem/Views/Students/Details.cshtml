@@ -1,0 +1,90 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewBag.Title = "Students Details Page";
+}
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <dd> Age</dd>
+        <dt>
+            @{
+                var age = 0;
+                var dob = Convert.ToDateTime(Model.DateOfBirth);
+                age = DateTime.Now.Year - dob.Year;
+                if (DateTime.Now.DayOfYear < dob.DayOfYear)
+                {
+                    age = age - 1;
+                }
+            }
+            <text>Student's age is </text>@age
+        </dt>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Course Title
+        </th>
+        <th>
+            Grade
+        </th>
+        <th>
+            Credits
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Enrollments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Credits)
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StudentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
